@@ -43,22 +43,16 @@ def LogIn(request):
             
             if authenticated_user is not None:
                 login(request,authenticated_user)
-            else:
-                print("Not logged in")
-        
         
         return redirect('dashboard')
-    else:
-        print("Not authenticateds")
         
     return render(request,"login.html")
 
 def LogOut(request):
+    
     if request.user:
         logout(request)
-        print("Logged out")
-    else:
-        print("Not logged in")
+        
     return redirect('login')
 
 def newHackathon(request):
