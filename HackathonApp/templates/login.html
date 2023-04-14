@@ -21,23 +21,24 @@
         <div class="container">
             <div class="sign-up-content">
                 <form method="POST" class="signup-form">
+                    {%csrf_token%}
                     <div class="form-textbox">
-                        <label for="name">Email</label>
-                        <input type="email" name="email" id="name" />
+                        <label for="name">Username</label>
+                        <input type="text" name="username" id="name" />
                     </div>
 
                     <div class="form-textbox">
                         <label for="pass">Password</label>
-                        <input type="password" name="pass" id="pass" />
+                        <input type="password" name="password" id="pass" />
                     </div>
 
                     <div class="form-textbox">
-                        <input type="submit" name="submit" id="submit" class="submit" value="Create account" />
+                        <input type="submit" name="submit" id="submit" class="submit" value="Login" />
                     </div>
                 </form>
 
                 <p class="loginhere">
-                    Don't have an account ?<a href="#" class="loginhere-link"> Sign up</a>
+                    Don't have an account ?<a href="{% url 'signup' %}" class="loginhere-link"> Sign up</a>
                 </p>
             </div>
         </div>

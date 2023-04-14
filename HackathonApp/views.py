@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from HackathonApp.forms import *
 from HackathonApp.models import *
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,logout,login
 
 def index(request):
     return render(request,"index.html")
@@ -11,14 +13,53 @@ def dashboard(request):
     context = {
         'hackathons' : hackathons
     }
+    print(request.user.username)
     
     return render(request,"dashboard.html",context)
 
-def login(request):
+def SignUp(request):
+    
+    if request.method == 'POST':
+        
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        
+        user = User.objects.create_user(username = username,email = email,password = password)
+        user.save()
+        
+        return redirect('dashboard')
+    
+    return render(request,'signup.html')
+
+def LogIn(request):
+    
+    if request.method == 'POST':
+        
+        if request.POST['username'] and request.POST['password']:
+            
+            authenticated_user = authenticate(username=request.POST['username'], password=request.POST['password'])
+            login(request, authenticated_user)
+            
+            if authenticated_user is not None:
+                login(request,authenticated_user)
+            else:
+                print("Not logged in")
+        
+        
+        return redirect('dashboard')
+    else:
+        print("Not authenticateds")
+        
     return render(request,"login.html")
 
-def signup(request):
-    return render(request,'signup.html')
+def LogOut(request):
+    if request.user:
+        logout(request)
+        print("Logged out")
+    else:
+        print("Not logged in")
+    return redirect('login')
 
 def newHackathon(request):
     
@@ -26,12 +67,10 @@ def newHackathon(request):
         form = HackathonForm(request.POST,request.FILES)
         context = {'form':form}
         if form.is_valid():
-            print("valid")
             form.save()
             form = HackathonForm()
             return redirect('dashboard')
         else:
-            print("invalid form")
             print(form.errors)
             return redirect('dashboard')
     else:    

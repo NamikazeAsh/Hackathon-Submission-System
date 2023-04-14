@@ -24,8 +24,9 @@ urlpatterns = [
     
     # path('',views.index),
     path('',views.dashboard,name='dashboard'),
-    path('login',views.login,name='login'),
-    path('signup',views.signup,name='signup'),
+    path('login',views.LogIn,name='login'),
+    path('logout',views.LogOut,name='logout'),
+    path('signup',views.SignUp,name='signup'),
     path('newHackathon',views.newHackathon,name='new-hackathon'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
