@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up</title>
+
+    <link rel="stylesheet" href="{% static 'signup/fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'signup/css/style.css' %}">
+</head>
+<body>
+
+    <div class="main">
+
+        <h2>Login</h2>
+        <div class="container">
+            <div class="sign-up-content">
+                <form method="POST" class="signup-form">
+                    <div class="form-textbox">
+                        <label for="name">Email</label>
+                        <input type="email" name="email" id="name" />
+                    </div>
+
+                    <div class="form-textbox">
+                        <label for="pass">Password</label>
+                        <input type="password" name="pass" id="pass" />
+                    </div>
+
+                    <div class="form-textbox">
+                        <input type="submit" name="submit" id="submit" class="submit" value="Create account" />
+                    </div>
+                </form>
+
+                <p class="loginhere">
+                    Don't have an account ?<a href="#" class="loginhere-link"> Sign up</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="{% static 'signup/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'signup/js/main.js' %}"></script>
+
+</body>
+</html>
