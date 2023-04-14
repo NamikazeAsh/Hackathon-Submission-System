@@ -32,17 +32,16 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="index.html">Hackathon Submission</a></h1>
+      <h1 class="logo"><a href="{% url 'dashboard' %}">Hackathon Submissions</a></h1>
 
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="#about">Favorites</a></li>
+          <!-- <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -60,17 +59,24 @@
         </div>
       </div>
       <div class="text-center">
-        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+        <a href="{% url 'new-hackathon' %}" class="btn-get-started scrollto">Get Started</a>
       </div>
 
       <div class="row icon-boxes">
+        {% for hackathon in hackathons %}
+        
         <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
-          <div class="icon-box">
-            <div class="icon"><i class="ri-stack-line"></i></div>
-            <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
+          <div class="icon-box" style="width: 100%;">
+            <div class="icon">
+              <!-- <i class="ri-stack-line"></i> -->
+              <img src="{{hackathon.hkimg.url}}" style="height: 65px">
+            </div>
+            <h4 class="title"><a href="">{{hackathon.title}}</a></h4>
+            <p class="description">{{hackathon.description}}</p>
           </div>
         </div>
+
+        {% endfor %}
 
       </div>
     </div>
@@ -83,8 +89,8 @@
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
-          <h2>Sevices</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <h2>Favorites</h2>
+          <p>Your favorite hackathons, all here.</p>
         </div>
 
         <div class="row">

@@ -1,11 +1,18 @@
 from django.shortcuts import render,redirect
 from HackathonApp.forms import *
+from HackathonApp.models import *
 
 def index(request):
     return render(request,"index.html")
 
 def dashboard(request):
-    return render(request,"dashboard.html")
+    
+    hackathons = HackathonModel.objects.all()
+    context = {
+        'hackathons' : hackathons
+    }
+    
+    return render(request,"dashboard.html",context)
 
 def login(request):
     return render(request,"login.html")
@@ -22,11 +29,11 @@ def newHackathon(request):
             print("valid")
             form.save()
             form = HackathonForm()
-            return redirect('new-hackathon')
+            return redirect('dashboard')
         else:
             print("invalid form")
             print(form.errors)
-            return redirect('new-hackathon')
+            return redirect('dashboard')
     else:    
         form = HackathonForm()
         context = {'form':form,}
