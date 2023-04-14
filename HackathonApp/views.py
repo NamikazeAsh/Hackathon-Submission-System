@@ -13,7 +13,6 @@ def dashboard(request):
     context = {
         'hackathons' : hackathons
     }
-    print(request.user.username)
     
     return render(request,"dashboard.html",context)
 
