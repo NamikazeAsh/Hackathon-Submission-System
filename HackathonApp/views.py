@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate,logout,login
 def index(request):
     return render(request,"index.html")
 
-def dashboard(request):
+def Dashboard(request):
     
     hackathons = HackathonModel.objects.all()
     context = {
@@ -71,3 +71,9 @@ def newHackathon(request):
         context = {'form':form,}
         return render(request,'newHackathon.html',context)
     
+    
+def HackathonDetail(request,id):
+    
+    hackathons = HackathonModel.objects.filter(id = id)
+    
+    return render(request,'hackathonDetail.html',{'hackathons':hackathons})

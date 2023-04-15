@@ -67,15 +67,15 @@
       </div>
 
       <div class="row icon-boxes">
+
         {% for hackathon in hackathons %}
         
         <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="zoom-in" data-aos-delay="200">
           <div class="icon-box" style="width: 100%;">
             <div class="icon">
-              <!-- <i class="ri-stack-line"></i> -->
               <img src="{{hackathon.hkimg.url}}" style="height: 65px">
             </div>
-            <h4 class="title"><a href="">{{hackathon.title}}</a></h4>
+            <h4 class="title"><a href="hackathonDetail/{{hackathon.id}}">{{hackathon.title}}</a></h4>
             <p class="description">{{hackathon.description}}</p>
           </div>
         </div>

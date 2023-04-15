@@ -1,7 +1,7 @@
 from django.forms import DateInput
 from django import forms
 
-from HackathonApp.models import HackathonModel
+from HackathonApp.models import *
 
 
 typec =  (
@@ -40,3 +40,18 @@ class HackathonForm(forms.ModelForm):
         self.fields['type'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['startdate'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['reward'].widget.attrs['class'] = 'form-control form-control-lg'
+
+class SubmissionForm(forms.ModelForm):
+
+    hackathonid = forms.ModelChoiceField(queryset=HackathonModel.objects.all())
+    title = forms.CharField(max_length=100)
+    summary = forms.CharField(max_length=100)
+    description = forms.CharField(max_length=500)
+    coverimg = forms.ImageField()
+    subimg = forms.ImageField()
+    sublink = forms.URLField(max_length=200)
+    subfile = forms.FileField()
+    
+    class Meta:
+        model = SubmissionModel
+        fields = "__all__"
