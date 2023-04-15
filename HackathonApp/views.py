@@ -77,3 +77,15 @@ def HackathonDetail(request,id):
     hackathons = HackathonModel.objects.filter(id = id)
     
     return render(request,'hackathonDetail.html',{'hackathons':hackathons})
+
+
+def newSubmission(request):
+    
+    if request.method == 'POST':
+        print("ok")
+    else:
+        form = SubmissionForm()
+        context = {'form':form}
+        return render(request,'newSubmission.html',context)
+    
+    return render(request,'newSubmission.html')

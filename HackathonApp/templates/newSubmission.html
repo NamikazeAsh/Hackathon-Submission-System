@@ -27,7 +27,6 @@
         }
         
         .gradient-custom-2 {
-        /* fallback for old browsers */
         background: #a1c4fd;
         
         /* Chrome 10-25, Safari 5.1-6 */
@@ -76,49 +75,38 @@
                     </div>
                     {% endif %}
 
-                <h2 class="text-uppercase text-center mb-5">Hackathon Creation</h2>
+                <h2 class="text-uppercase text-center mb-5">Hackathon Submission</h2>
 
                 <form method="POST" enctype="multipart/form-data">
 
                     {% csrf_token %}
 
+                    <label class="form-label" for="form3Example3cg">Hackathon</label>
+                    {{form.hackathonid}}
+                    
+                    
                     <div class="form-outline mb-4">
                     {{form.title}}
                     <label class="form-label" for="form3Example1cg">Title</label>
                     </div>
 
                     <div class="form-outline mb-4">
+                    {{form.summary}}
+                    <label class="form-label" for="form3Example3cg">Summary</label>
+                    </div>
+                    
+                    <div class="form-outline mb-4">
                     {{form.description}}
                     <label class="form-label" for="form3Example3cg">Description</label>
                     </div>
-                    
+
                     <label class="form-label" for="form3Example3cg">Background Image</label>
-                    {{form.bgimg}}
+                    {{form.coverimg}}
 
                     <label class="form-label" for="form3Example3cg">Hackathon Image</label>
-                    {{form.hkimg}}
+                    {{form.subimg}}
 
-                    <div class="form-outline mb-4">
-                    <p class="form-label" style="padding-top: 5px;">Start Date</p>
-                    {{form.startdate}}
-                    </div>
-
-                    <div class="form-outline mb-4">
-                    <p class="form-label" style="padding-top: 5px;">End Date</p>
-                    {{form.enddate}}
-                    </div>
-
-                    <div class="form-outline mb-4">
-                    <p class="form-label" style="padding-top: 5px;">Type</p>
-                    {{form.type}}
-                    </div>
-
-                    <div class="form-outline mb-4">
-                    {{form.reward}}
-                    <label class="form-label" for="form3Example3cg">Reward</label>
-                    </div>
-
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center" style="padding-top:30px">
                     <input type="submit" value="Submit" class="btn btn-success btn-lg gradient-custom-4 text-body">
                     </div>
 

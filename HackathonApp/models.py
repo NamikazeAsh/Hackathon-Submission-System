@@ -18,6 +18,9 @@ class HackathonModel(models.Model):
     enddate = models.DateField()
     reward = models.IntegerField()
     
+    def __str__(self):
+        return f'{self.title}'
+    
 class SubmissionModel(models.Model):
 
     hackathonid = models.ForeignKey(HackathonModel,on_delete=models.CASCADE)
