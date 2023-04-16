@@ -28,8 +28,9 @@ def Dashboard(request):
     print("usermodelfav ",usermodelfav)
 
     favsubmissions = []
-    for x in usermodelfav:
-        favsubmissions.append(SubmissionModel.objects.get(id = x))
+    if usermodelfav != []:    
+        for x in usermodelfav:
+            favsubmissions.append(SubmissionModel.objects.get(id = x))
 
     print(favsubmissions)
     hackathons = HackathonModel.objects.all()
