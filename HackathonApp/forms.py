@@ -57,7 +57,7 @@ class SubmissionForm(forms.ModelForm):
     class Meta:
         
         model = SubmissionModel
-        fields = ('title','summary','description','coverimg','subimg','sublink','subfile')
+        fields = ('hackathonid','title','summary','description','coverimg','subimg','sublink','subfile')
         
         
     def __init__(self, *args, **kwargs):
@@ -75,3 +75,4 @@ class SubmissionForm(forms.ModelForm):
         self.fields['subimg'].required  = False
         self.fields['sublink'].required  = False
         self.fields['subfile'].required  = False
+        self.fields['hackathonid'].required  = False

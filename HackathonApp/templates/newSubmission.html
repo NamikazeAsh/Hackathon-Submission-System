@@ -55,6 +55,28 @@
 
 
 
+<script>
+
+    function option()
+    {
+
+        if("{{hackathon.type}}" == "File")
+        {
+            sub_file();
+        }
+        else if( "{{hackathon.type}}" == "Image")
+        {
+            sub_file();
+        }
+        else if( "{{hackathon.type}}" == "Link")
+        {
+            sub_file();
+        }
+        
+    }
+
+</script>
+
 <section class="vh-100 bg-image" style="background-color: #4835d4;">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
@@ -75,18 +97,17 @@
                     </div>
                     {% endif %}
 
-                <h2 class="text-uppercase text-center mb-5">Submission: {{hackathon.title}}</h2>
+                <h2 class="text-uppercase text-center mb-5">Submission</h2>
                 
 
                 <form method="POST" enctype="multipart/form-data">
 
                     {% csrf_token %}
 
-                    <div class="form-outline mb-4">
-                        <!-- <input type="text" class='form-control form-control-lg' name="title"> -->
+                    <!-- <div class="form-outline mb-4">
                         <label class="form-label" for="form3Example1cg" >Hackathon</label>
                         {{form.hackathonid}}
-                    </div>
+                    </div> -->
 
                     <div class="form-outline mb-4">
                     <!-- <input type="text" class='form-control form-control-lg' name="title"> -->

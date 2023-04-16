@@ -23,7 +23,7 @@ class HackathonModel(models.Model):
     
 class SubmissionModel(models.Model):
 
-    hackathonid = models.ForeignKey(HackathonModel,on_delete=models.CASCADE)
+    hackathonid = models.ForeignKey(HackathonModel,on_delete=models.CASCADE,null=True,blank=True)
     title = models.TextField(max_length=100)
     summary = models.TextField(max_length=100)
     description = models.TextField(max_length=500)
