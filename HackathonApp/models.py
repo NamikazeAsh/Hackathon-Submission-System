@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
+from django.contrib.auth.models import User
 
 typec =  (
     ('Image', 'Image'),
@@ -36,3 +37,12 @@ class SubmissionModel(models.Model):
     
     def __str__(self):
         return f'{self.title} for {self.hackathonid}'
+    
+class UserModel(models.Model):
+
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    userfavorites = models.ManyToManyField(SubmissionModel,blank=True,related_name="userfavorites")
+    usersubmissions = models.ManyToManyField(SubmissionModel,blank=True,related_name="usersubmissions")
+    
+    def __str__(self):
+        return (str(self.user))

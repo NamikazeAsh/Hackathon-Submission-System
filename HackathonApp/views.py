@@ -146,3 +146,9 @@ def DownloadSubmission(request,id):
     # os.remove("/tempfile/" + filename + " Solution") 
     
     return response
+
+def FavoriteAdd(request,id):
+    
+    submission = SubmissionModel.objects.get(id=id)
+    
+    return render(request,"submissionDetail.html",{'submission':submission})
