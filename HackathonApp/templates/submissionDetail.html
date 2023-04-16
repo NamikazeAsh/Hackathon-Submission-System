@@ -157,7 +157,7 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="{% url 'dashboard' %}">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">Favorites</a></li>
+          <li><a class="nav-link scrollto" href="#about">Submissions</a></li>
           {% if user.is_authenticated %}
           <li><a class="nav-link scrollto" href="{% url 'logout' %}">{{user}} | Logout</a></li>
           {% else %}

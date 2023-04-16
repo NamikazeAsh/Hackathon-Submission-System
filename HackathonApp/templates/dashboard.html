@@ -40,9 +40,9 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="{% url 'dashboard' %}">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">Favorites</a></li>
+          <li><a class="nav-link scrollto" href="#about">Submissions</a></li>
           {% if user.is_authenticated %}
-          <li><a class="nav-link scrollto" href="{% url 'logout' %}">Ashwin | Logout</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'logout' %}">{{user}} | Logout</a></li>
           {% else %}
           <li><a class="nav-link scrollto" href="{% url 'login' %}">Login</a></li>
           {% endif %}
@@ -116,11 +116,7 @@
       </div>
     </section><!-- End Sevices Section -->
 
-
-
   </main><!-- End #main -->
-
-  
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

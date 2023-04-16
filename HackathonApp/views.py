@@ -5,12 +5,16 @@ from HackathonApp.forms import *
 from HackathonApp.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,logout,login
+from django.contrib.auth.decorators import login_required
 
 import mimetypes
+
 
 def index(request):
     return render(request,"index.html")
 
+
+@login_required(login_url='login')
 def Dashboard(request):
     
     hackathons = HackathonModel.objects.all()
@@ -19,6 +23,7 @@ def Dashboard(request):
     }
     
     return render(request,"dashboard.html",context)
+
 
 def SignUp(request):
     
@@ -34,6 +39,7 @@ def SignUp(request):
         return redirect('dashboard')
     
     return render(request,'signup.html')
+
 
 def LogIn(request):
     
@@ -51,6 +57,7 @@ def LogIn(request):
         
     return render(request,"login.html")
 
+
 def LogOut(request):
     
     if request.user:
@@ -58,6 +65,8 @@ def LogOut(request):
         
     return redirect('login')
 
+
+@login_required(login_url='login')
 def newHackathon(request):
     
     if request.method == 'POST':
@@ -75,7 +84,7 @@ def newHackathon(request):
         context = {'form':form,}
         return render(request,'newHackathon.html',context)
     
-    
+@login_required(login_url='login')
 def HackathonDetail(request,id):
     
     hackathons = HackathonModel.objects.filter(id = id)
@@ -84,7 +93,7 @@ def HackathonDetail(request,id):
     
     return render(request,'hackathonDetail.html',{'hackathons':hackathons,'submissions':submissions})
 
-
+@login_required(login_url='login')
 def newSubmission(request,id):
     
     hackathon = HackathonModel.objects.get(id = id)
@@ -98,6 +107,9 @@ def newSubmission(request,id):
             form_data = form.save(commit=False)
             form_data.hackathonid = hackathon
             form_data.type = hackathon.type
+            curuser = str(request.user)
+            print(curuser,type(curuser))
+            form_data.username = curuser
             form_data.save()
             
             form = SubmissionForm()
@@ -117,6 +129,7 @@ def newSubmission(request,id):
     return render(request,'newSubmission.html',context)
 
 
+@login_required(login_url='login')
 def SubmissionDetail(request,id):
 
     submission = SubmissionModel.objects.get(id=id)
@@ -124,6 +137,7 @@ def SubmissionDetail(request,id):
     return render(request,"submissionDetail.html",{'submission':submission})
         
         
+@login_required(login_url='login')
 def DownloadSubmission(request,id):
 
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -147,6 +161,8 @@ def DownloadSubmission(request,id):
     
     return response
 
+
+@login_required(login_url='login')
 def FavoriteAdd(request,id):
     
     submission = SubmissionModel.objects.get(id=id)

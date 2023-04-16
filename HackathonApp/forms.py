@@ -46,6 +46,7 @@ class HackathonForm(forms.ModelForm):
 class SubmissionForm(forms.ModelForm):
 
     hackathonid = forms.ModelChoiceField(queryset=HackathonModel.objects.all())
+    username = forms.CharField(max_length=100)
     type = forms.CharField(max_length=100)
     title = forms.CharField(max_length=100)
     summary = forms.CharField(max_length=100)
@@ -58,7 +59,7 @@ class SubmissionForm(forms.ModelForm):
     class Meta:
         
         model = SubmissionModel
-        fields = ('hackathonid','title','summary','description','coverimg','subimg','sublink','subfile')
+        fields = ('hackathonid','username','title','summary','description','coverimg','subimg','sublink','subfile','type')
         
         
     def __init__(self, *args, **kwargs):
@@ -78,3 +79,4 @@ class SubmissionForm(forms.ModelForm):
         self.fields['subfile'].required  = False
         self.fields['hackathonid'].required  = False
         self.fields['type'].required  = False
+        self.fields['username'].required = False

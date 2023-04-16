@@ -26,6 +26,7 @@ class HackathonModel(models.Model):
 class SubmissionModel(models.Model):
 
     hackathonid = models.ForeignKey(HackathonModel,on_delete=models.CASCADE,null=True,blank=True)
+    username = models.CharField(max_length=100,null=True,blank=True)
     type = models.CharField(max_length=100,null=True,blank=True)
     title = models.TextField(max_length=100)
     summary = models.TextField(max_length=100)
@@ -42,7 +43,6 @@ class UserModel(models.Model):
 
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     userfavorites = models.ManyToManyField(SubmissionModel,blank=True,related_name="userfavorites")
-    usersubmissions = models.ManyToManyField(SubmissionModel,blank=True,related_name="usersubmissions")
     
     def __str__(self):
         return (str(self.user))
