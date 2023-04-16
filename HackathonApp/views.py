@@ -168,3 +168,12 @@ def FavoriteAdd(request,id):
     submission = SubmissionModel.objects.get(id=id)
     
     return render(request,"submissionDetail.html",{'submission':submission})
+
+@login_required(login_url='login')
+def SubmissionsList(request):
+    
+    username = str(request.user)
+    submissions = SubmissionModel.objects.filter(username = username)
+    print(submissions)
+    
+    return render(request,"submissionList.html",{'submissions':submissions})

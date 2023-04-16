@@ -31,5 +31,6 @@ urlpatterns = [
     path('hackathonDetail/<int:id>',views.HackathonDetail,name='hackathon-details'),
     path('hackathonDetail/submissionDetail/<int:id>',views.SubmissionDetail,name='submission-details'),
     path('downloadSubmission/<int:id>',views.DownloadSubmission,name='download-submission'),
+    path('submissionList',views.SubmissionsList,name='submission-list'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

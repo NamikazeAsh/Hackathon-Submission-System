@@ -204,13 +204,18 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info">
-              <h3><a href="#"><img src = {% static 'icons/star.svg' %}></a><br><br>Submission Information</h3>
+                <h3><a href="#"><img src = {% static 'icons/star.svg' %}></a> 
+                <a href=""><img src = {% static 'icons/trash.svg' %}></a>
+                <a href=""><img src = {% static 'icons/edit.svg' %}></a>
+                <br><br>Submission Information</h3>
+              
               
               
               <ul>
                 <li><strong>Title</strong>: {{submission.title}}</li>
                 <li><strong>Summary</strong>: {{submission.summary}}</li>
                 <li><strong>Description</strong>: {{submission.description}}</li>
+                <li><strong>Submission by</strong>: {{submission.username}}</li>
               </ul>
               
             </div>
