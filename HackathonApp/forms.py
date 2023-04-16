@@ -55,13 +55,14 @@ class SubmissionForm(forms.ModelForm):
     subfile = forms.FileField()
     
     class Meta:
+        
         model = SubmissionModel
-        fields = "__all__"
+        fields = ('title','summary','description','coverimg','subimg','sublink','subfile')
         
         
     def __init__(self, *args, **kwargs):
+        
         super(SubmissionForm, self).__init__(*args, **kwargs)
-        self.fields['hackathonid'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['title'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['summary'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['description'].widget.attrs['class'] = 'form-control form-control-lg'

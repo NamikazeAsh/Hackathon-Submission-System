@@ -110,13 +110,14 @@
                 <li><strong>End Date</strong>: {{hackathon.enddate}}</li>
                 <li><strong>Reward</strong>: {{hackathon.reward}}</li>
               </ul>
-              {% endfor %}
+              
             </div>
             <div class="portfolio-description">
               <h2>Make your submission here</h2>
                 <div class="text-center">
-                  <a href="#" class="btn-get-started scrollto">Get Started</a>
+                  <a href="/newSubmission/{{hackathon.id}}" class="btn-get-started scrollto">Create Submission</a>
                 </div>
+                {% endfor %}
             </div>
           </div>
 

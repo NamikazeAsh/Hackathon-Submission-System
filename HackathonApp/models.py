@@ -29,6 +29,6 @@ class SubmissionModel(models.Model):
     description = models.TextField(max_length=500)
     coverimg = models.ImageField(upload_to = "images/coverimages")
     subimg = models.ImageField(null=True,blank=True,upload_to="images/subimages")
-    sublink = models.URLField(max_length=200,null=True,blank=True)
-    subfile = models.FileField(null=True,blank=True,upload_to="images/subfile")
+    sublink = models.URLField(null=True,blank=True,max_length=200,default="-")
+    subfile = models.FileField(null=True,blank=True,upload_to="images/subfile",default="-")
     

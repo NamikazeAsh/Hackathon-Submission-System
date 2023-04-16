@@ -79,13 +79,27 @@ def HackathonDetail(request,id):
     return render(request,'hackathonDetail.html',{'hackathons':hackathons})
 
 
-def newSubmission(request):
+def newSubmission(request,id):
     
+    hackathon = HackathonModel.objects.get(id = id)
+
     if request.method == 'POST':
-        print("ok")
-    else:
+        form = SubmissionForm(request.POST,request.FILES)
+        context = {'form':form,'hackathon':hackathon}
+        
+        if form.is_valid():
+            form.save()
+            form = SubmissionForm()
+            
+        else:
+            print(form.errors)
+            
+    else:    
         form = SubmissionForm()
-        context = {'form':form}
-        return render(request,'newSubmission.html',context)
-    
-    return render(request,'newSubmission.html')
+        context = {
+            'form':form,
+            'hackathon' : hackathon
+            }
+        
+    return render(request,'newSubmission.html',context)
+        

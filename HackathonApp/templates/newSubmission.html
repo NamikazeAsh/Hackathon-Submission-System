@@ -75,36 +75,54 @@
                     </div>
                     {% endif %}
 
-                <h2 class="text-uppercase text-center mb-5">Hackathon Submission</h2>
+                <h2 class="text-uppercase text-center mb-5">Submission: {{hackathon.title}}</h2>
+                
 
                 <form method="POST" enctype="multipart/form-data">
 
                     {% csrf_token %}
 
-                    <label class="form-label" for="form3Example3cg">Hackathon</label>
-                    {{form.hackathonid}}
-                    
-                    
                     <div class="form-outline mb-4">
+                    <!-- <input type="text" class='form-control form-control-lg' name="title"> -->
+                    <label class="form-label" for="form3Example1cg" >Title</label>
                     {{form.title}}
-                    <label class="form-label" for="form3Example1cg">Title</label>
                     </div>
 
                     <div class="form-outline mb-4">
+                    <!-- <input type="text" class='form-control form-control-lg' name="summary"> -->
+                    <label class="form-label" for="form3Example3cg" >Summary</label>
                     {{form.summary}}
-                    <label class="form-label" for="form3Example3cg">Summary</label>
                     </div>
                     
                     <div class="form-outline mb-4">
+                    <!-- <input type="text" class='form-control form-control-lg' name="description"> -->
+                    <label class="form-label" for="form3Example3cg" >Description</label>
                     {{form.description}}
-                    <label class="form-label" for="form3Example3cg">Description</label>
                     </div>
-
-                    <label class="form-label" for="form3Example3cg">Background Image</label>
+                    
+                    <label class="form-label" for="form3Example3cg" >Cover Image</label>
+                    <!-- <input type="file" class='form-control form-control-lg' name="coverimg"> -->
                     {{form.coverimg}}
 
-                    <label class="form-label" for="form3Example3cg">Hackathon Image</label>
+                    {% if hackathon.type == 'Image' %}
+                    <label class="form-label" for="form3Example3cg" >Submission Image</label>
+                    <!-- <input type="image" class='form-control form-control-lg' name="subimg"> -->
                     {{form.subimg}}
+
+                    {% elif hackathon.type == 'File' %}
+                    <label class="form-label" for="form3Example3cg" >Submission File</label>
+                    <!-- <input type="file" class='form-control form-control-lg' name="subfile"> -->
+                    {{form.subfile}}
+
+                    {% elif hackathon.type == 'Link' %}
+                    <label class="form-label" for="form3Example3cg" >Submission Link</label>
+                    <!-- <input type="url" class='form-control form-control-lg' name="sublink"> -->
+                    {{form.sublink}}
+
+                    {% else %}
+                    -
+
+                    {% endif %}
 
                     <div class="d-flex justify-content-center" style="padding-top:30px">
                     <input type="submit" value="Submit" class="btn btn-success btn-lg gradient-custom-4 text-body">
