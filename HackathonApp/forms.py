@@ -63,6 +63,7 @@ class SubmissionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         
         super(SubmissionForm, self).__init__(*args, **kwargs)
+        self.fields['hackathonid'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['title'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['summary'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['description'].widget.attrs['class'] = 'form-control form-control-lg'
@@ -70,3 +71,7 @@ class SubmissionForm(forms.ModelForm):
         self.fields['subimg'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['sublink'].widget.attrs['class'] = 'form-control form-control-lg'
         self.fields['subfile'].widget.attrs['class'] = 'form-control form-control-lg'
+        
+        self.fields['subimg'].required  = False
+        self.fields['sublink'].required  = False
+        self.fields['subfile'].required  = False

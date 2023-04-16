@@ -87,6 +87,16 @@ def newSubmission(request,id):
         form = SubmissionForm(request.POST,request.FILES)
         context = {'form':form,'hackathon':hackathon}
         
+        # if hackathon.type == 'Image':
+        #     form.cleaned_data['subfile'] = None
+        #     form.cleaned_data['sublink'] = None
+        # elif hackathon.type == 'Link':
+        #     form.cleaned_data['subfile'] = None
+        #     form.cleaned_data['subimg'] = None
+        # elif hackathon.type == 'File':
+        #     form.cleaned_data['subimg'] = None
+        #     form.cleaned_data['sublink'] = None
+        
         if form.is_valid():
             form.save()
             form = SubmissionForm()
