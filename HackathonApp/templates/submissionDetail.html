@@ -204,14 +204,19 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info">
-                <h3><a href="#"><img src = {% static 'icons/star.svg' %}></a>
+              <h3>
+              {% if submission.id not in usermodelfav %}
+              <a href="/favoriteSubmission/{{submission.id}}"><img src = {% static 'icons/star.svg' %}></a>
+              {% else %}
+              <a href="/favoriteSubmissionRemove/{{submission.id}}"><img src = {% static 'icons/check-square.svg' %} alt="Favorited"></a>
+              {% endif %}
+              
+              {% if submission.username == request.user.username %}
+              <a href="/submissionDelete/{{submission.id}}"><img src = {% static 'icons/trash.svg' %}></a>
+              <a href="/submissionEdit/{{submission.id}}"><img src = {% static 'icons/edit.svg' %}></a>
+              {% endif %}
 
-                {% if submission.username == request.user.username %}
-                <a href="/submissionDelete/{{submission.id}}"><img src = {% static 'icons/trash.svg' %}></a>
-                <a href="/submissionEdit/{{submission.id}}"><img src = {% static 'icons/edit.svg' %}></a>
-                {% endif %}
-
-                <br><br>Submission Information</h3>
+              <br><br>Submission Information</h3>
               
               <ul>
                 <li><strong>Title</strong>: {{submission.title}}</li>

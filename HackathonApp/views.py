@@ -136,8 +136,15 @@ def newSubmission(request,id):
 def SubmissionDetail(request,id):
 
     submission = SubmissionModel.objects.get(id=id)
+    uid = request.user.id
+
+    usermodelf = UserModel.objects.filter(user = uid).values_list('userfavorites')
+    usermodelfav = []
+    for a in usermodelf:
+        usermodelfav.append(a[0])
+    print(usermodelfav)
     
-    return render(request,"submissionDetail.html",{'submission':submission})
+    return render(request,"submissionDetail.html",{'submission':submission,'usermodelfav':usermodelfav})
         
         
 @login_required(login_url='login')
@@ -160,7 +167,6 @@ def DownloadSubmission(request,id):
     mime_type = mimetypes.guess_type(filepath)
     response = HttpResponse(path, content_type=mime_type)
     response['Content-Disposition'] = "attachment; filename=%s" % filename
-    # os.remove("/tempfile/" + filename + " Solution") 
     
     return response
 
@@ -224,6 +230,35 @@ def SubmissionEdit(request,id):
 def FavoriteSubmission(request,id):
 
     submission = SubmissionModel.objects.get(id=id)
+    cuser = request.user
+    uid = request.user.id
+
+    usermodel = UserModel.objects.get(user=uid)
+    usermodel.userfavorites.add(submission)
     
+    usermodelf = UserModel.objects.filter(user = uid).values_list('userfavorites') 
+    usermodelfav = []
+    for a in usermodelf:
+        usermodelfav.append(a[0])
+    print(usermodelfav)
+    
+    return SubmissionDetail(request,id)
+
+
+@login_required(login_url='login')
+def FavoriteSubmissionRemove(request,id):
+
+    submission = SubmissionModel.objects.get(id=id)
+    cuser = request.user
+    uid = request.user.id
+
+    usermodel = UserModel.objects.get(user=uid)
+    usermodel.userfavorites.remove(submission)
+    
+    usermodelf = UserModel.objects.filter(user = uid).values_list('userfavorites') 
+    usermodelfav = []
+    for a in usermodelf:
+        usermodelfav.append(a[0])
+
     
     return SubmissionDetail(request,id)
