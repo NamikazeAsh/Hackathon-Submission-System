@@ -46,6 +46,7 @@ class HackathonForm(forms.ModelForm):
 class SubmissionForm(forms.ModelForm):
 
     hackathonid = forms.ModelChoiceField(queryset=HackathonModel.objects.all())
+    type = forms.CharField(max_length=100)
     title = forms.CharField(max_length=100)
     summary = forms.CharField(max_length=100)
     description = forms.CharField(max_length=500)
@@ -76,3 +77,4 @@ class SubmissionForm(forms.ModelForm):
         self.fields['sublink'].required  = False
         self.fields['subfile'].required  = False
         self.fields['hackathonid'].required  = False
+        self.fields['type'].required  = False

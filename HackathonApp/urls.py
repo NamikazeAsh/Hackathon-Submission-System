@@ -27,7 +27,9 @@ urlpatterns = [
     path('logout',views.LogOut,name='logout'),
     path('signup',views.SignUp,name='signup'),
     path('newHackathon',views.newHackathon,name='new-hackathon'),
-    path('newSubmission/<int:id>',views.newSubmission,name='new-submission'),
+    path('hackathonDetail/newSubmission/<int:id>',views.newSubmission,name='new-submission'),
     path('hackathonDetail/<int:id>',views.HackathonDetail,name='hackathon-details'),
+    path('hackathonDetail/submissionDetail/<int:id>',views.SubmissionDetail,name='submission-details'),
+    path('downloadSubmission/<int:id>',views.DownloadSubmission,name='download-submission'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
