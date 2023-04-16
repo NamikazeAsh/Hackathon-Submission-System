@@ -36,6 +36,9 @@ def SignUp(request):
         user = User.objects.create_user(username = username,email = email,password = password)
         user.save()
         
+        um = UserModel.objects.create(user = user)
+        um.save()
+        
         return redirect('dashboard')
     
     return render(request,'signup.html')
@@ -163,14 +166,6 @@ def DownloadSubmission(request,id):
 
 
 @login_required(login_url='login')
-def FavoriteAdd(request,id):
-    
-    submission = SubmissionModel.objects.get(id=id)
-    
-    return render(request,"submissionDetail.html",{'submission':submission})
-
-
-@login_required(login_url='login')
 def SubmissionsList(request):
     
     username = str(request.user)
@@ -222,3 +217,13 @@ def SubmissionEdit(request,id):
         context = {'form':form}
     
     return render(request,'newSubmission.html',context)
+
+
+
+@login_required(login_url='login')
+def FavoriteSubmission(request,id):
+
+    submission = SubmissionModel.objects.get(id=id)
+    
+    
+    return SubmissionDetail(request,id)

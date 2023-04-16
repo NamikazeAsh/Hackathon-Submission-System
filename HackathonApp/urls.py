@@ -34,5 +34,6 @@ urlpatterns = [
     path('submissionList',views.SubmissionsList,name='submission-list'),
     path('submissionEdit/<int:id>',views.SubmissionEdit,name='submission-edit'),
     path('submissionDelete/<int:id>',views.SubmissionDelete,name='submission-delete'),
+    path('favoriteSubmission/<int:id>',views.FavoriteSubmission,name='favorite-submission')
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
