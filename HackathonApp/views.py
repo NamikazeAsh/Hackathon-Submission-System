@@ -17,9 +17,25 @@ def index(request):
 @login_required(login_url='login')
 def Dashboard(request):
     
+    uid = request.user.id
+    
+    usermodelf = UserModel.objects.filter(user = uid).values_list('userfavorites') 
+    usermodelfav = []
+
+    for a in usermodelf:
+        usermodelfav.append(a[0])
+
+    print("usermodelfav ",usermodelfav)
+
+    favsubmissions = []
+    for x in usermodelfav:
+        favsubmissions.append(SubmissionModel.objects.get(id = x))
+
+    print(favsubmissions)
     hackathons = HackathonModel.objects.all()
     context = {
-        'hackathons' : hackathons
+        'hackathons' : hackathons,
+        'favsubmissions' : favsubmissions
     }
     
     return render(request,"dashboard.html",context)

@@ -39,13 +39,13 @@
 
     <nav id="navbar" class="navbar">
         <ul>
-        <li><a class="nav-link scrollto active" href="{% url 'dashboard' %}">Home</a></li>
-        <li><a class="nav-link scrollto" href="#">Submissions</a></li>
-        {% if user.is_authenticated %}
-        <li><a class="nav-link scrollto" href="{% url 'logout' %}">{{user}} | Logout</a></li>
-        {% else %}
-        <li><a class="nav-link scrollto" href="{% url 'login' %}">Login</a></li>
-        {% endif %}
+            <li><a class="nav-link scrollto active" href="{% url 'dashboard' %}">Home</a></li>
+            <li><a class="nav-link scrollto" href="{% url 'submission-list' %}">Submissions</a></li>
+            {% if user.is_authenticated %}
+            <li><a class="nav-link scrollto" href="{% url 'logout' %}">{{user}} | Logout</a></li>
+            {% else %}
+            <li><a class="nav-link scrollto" href="{% url 'login' %}">Login</a></li>
+            {% endif %}
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar -->
