@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['https://hackathon-submission-system-production.up.railway.app/
 #         'django.contrib.auth.backends.ModelBackend',
 #     )
 
+CSRF_TRUSTED_ORIGINS = ['*','https://hackathon-submission-system-production.up.railway.app/','hackathon-submission-system-production.up.railway.app']
+
 AUTHENTICATION_BACKENDS = [
         'django.contrib.auth.backends.ModelBackend',
     ]
