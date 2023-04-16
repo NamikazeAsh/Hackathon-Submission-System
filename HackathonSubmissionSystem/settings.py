@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-&$_ny=3$fzl8^pm7(u8m!i05e&z=5p419n2@$5m9k$&)=*e+kx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://hackathon-submission-system-production.up.railway.app/']
+ALLOWED_HOSTS = ['https://hackathon-submission-system-production.up.railway.app/','hackathon-submission-system-production.up.railway.app']
 
 # AUTHENTICATION_BACKENDS = (
 #         'django.contrib.auth.backends.ModelBackend',
