@@ -169,6 +169,7 @@ def FavoriteAdd(request,id):
     
     return render(request,"submissionDetail.html",{'submission':submission})
 
+
 @login_required(login_url='login')
 def SubmissionsList(request):
     
@@ -177,3 +178,47 @@ def SubmissionsList(request):
     print(submissions)
     
     return render(request,"submissionList.html",{'submissions':submissions})
+
+
+@login_required(login_url='login')
+def SubmissionDelete(request,id):
+    
+    submissions = SubmissionModel.objects.get(id = id)
+    submissions.delete()
+    
+    return redirect('dashboard')
+
+
+@login_required(login_url='login')
+def SubmissionEdit(request,id):
+    
+    submissionx = SubmissionModel.objects.get(id = id)
+    hackathonid = submissionx.hackathonid
+    htype = submissionx.type
+    husername = submissionx.username
+    
+    if request.method == 'POST':
+        form = SubmissionForm(request.POST,instance=submissionx)
+        if form.is_valid():
+            
+            form_data = form.save(commit=False)
+            form_data.hackathonid = hackathonid
+            form_data.type = htype
+            form_data.username = husername
+            form_data.save()
+            
+            form.save()
+            
+            return redirect('dashboard')
+        else:
+            print(form.errors)
+    
+    else:
+        
+        submissionx = SubmissionModel.objects.get(id = id)
+        submission = submissionx 
+            
+        form = SubmissionForm(instance = submission)
+        context = {'form':form}
+    
+    return render(request,'newSubmission.html',context)

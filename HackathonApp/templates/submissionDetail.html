@@ -204,12 +204,14 @@
 
           <div class="col-lg-4">
             <div class="portfolio-info">
-                <h3><a href="#"><img src = {% static 'icons/star.svg' %}></a> 
-                <a href=""><img src = {% static 'icons/trash.svg' %}></a>
-                <a href=""><img src = {% static 'icons/edit.svg' %}></a>
+                <h3><a href="#"><img src = {% static 'icons/star.svg' %}></a>
+
+                {% if submission.username == request.user.username %}
+                <a href="/submissionDelete/{{submission.id}}"><img src = {% static 'icons/trash.svg' %}></a>
+                <a href="/submissionEdit/{{submission.id}}"><img src = {% static 'icons/edit.svg' %}></a>
+                {% endif %}
+
                 <br><br>Submission Information</h3>
-              
-              
               
               <ul>
                 <li><strong>Title</strong>: {{submission.title}}</li>
@@ -227,7 +229,6 @@
                   <a href="{{submission.sublink}}" class="btn-get-started scrollto">Link</a>
                   {% elif submission.type == "Image" %}
                   <a href="/downloadSubmission/{{submission.id}}" class="btn-get-started scrollto">Image</a>
-                  <!-- <img src="{{submission.subimg.url}}"> -->
                   {% elif submission.type == "File" %}
                   <a href="/downloadSubmission/{{submission.id}}" class="btn-get-started scrollto">File</a>
                   {% endif %}
