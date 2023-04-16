@@ -91,14 +91,29 @@ WSGI_APPLICATION = 'HackathonSubmissionSystem.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'hackathonsub',
+#         'USER' : 'root',
+#         'PASSWORD' : '',
+#         'HOST' : 'localhost',
+#         'PORT' : '3306',
+#         'OPTIONS' : {
+#             'init_command' : "SET sql_mode = 'STRICT_TRANS_TABLES'"
+#         }
+#     }
+# }
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hackathonsub',
+        'NAME': 'railway',
         'USER' : 'root',
-        'PASSWORD' : '',
-        'HOST' : 'localhost',
-        'PORT' : '3306',
+        'PASSWORD' : '0KQaRkjObLrqmTd5XqbB',
+        'HOST' : 'containers-us-west-156.railway.app',
+        'PORT' : '6328',
         'OPTIONS' : {
             'init_command' : "SET sql_mode = 'STRICT_TRANS_TABLES'"
         }
