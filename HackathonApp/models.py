@@ -31,4 +31,3 @@ class SubmissionModel(models.Model):
     subimg = models.ImageField(null=True,blank=True,upload_to="images/subimages")
     sublink = models.URLField(null=True,blank=True,max_length=200,default="https://null.com")
     subfile = models.FileField(null=True,blank=True,upload_to="images/subfile",default="-")
-    
