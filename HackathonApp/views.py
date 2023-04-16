@@ -136,8 +136,8 @@ def DownloadSubmission(request,id):
         path = open(filepath, 'rb')
     elif submission.type == "Image":
         filename = submission.subimg.name
-        filepath = BASE_DIR + 'images/images/subimg/' + filename
-        path = open(filepath, 'r',encoding="utf8")
+        filepath = BASE_DIR + '/images/' + filename
+        path = open(filepath, 'rb')
     
     
     mime_type = mimetypes.guess_type(filepath)

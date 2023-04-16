@@ -30,9 +30,9 @@ class SubmissionModel(models.Model):
     summary = models.TextField(max_length=100)
     description = models.TextField(max_length=500)
     coverimg = models.ImageField(upload_to = "images/coverimages")
-    subimg = models.ImageField(null=True,blank=True,upload_to="images/subimages",validators=[FileExtensionValidator('jpg','png','jpeg')])
+    subimg = models.ImageField(null=True,blank=True,upload_to="images/subimages",validators=[FileExtensionValidator(['png','jpeg','jpg','ico',""])])
     sublink = models.URLField(null=True,blank=True,max_length=200,default="https://null.com")
-    subfile = models.FileField(null=True,blank=True,upload_to="images/subfile",default="-",validators=[FileExtensionValidator(['pdf','csv','docx'])])
+    subfile = models.FileField(null=True,blank=True,upload_to="images/subfile",default="-",validators=[FileExtensionValidator(['pdf','csv','docx',""])])
     
     def __str__(self):
         return f'{self.title} for {self.hackathonid}'
