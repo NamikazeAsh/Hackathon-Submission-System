@@ -28,7 +28,7 @@ def Dashboard(request):
     print("usermodelfav ",usermodelfav)
 
     favsubmissions = []
-    if usermodelfav != []:    
+    if usermodelfav != [None]:    
         for x in usermodelfav:
             favsubmissions.append(SubmissionModel.objects.get(id = x))
 
