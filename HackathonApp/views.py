@@ -1,5 +1,5 @@
 import os
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render,redirect
 from HackathonApp.forms import *
 from HackathonApp.models import *
@@ -24,7 +24,10 @@ def Dashboard(request):
     
     uid = request.user.id
     
-    usermodelf = UserModel.objects.filter(user = uid).values_list('userfavorites') 
+    i_usermodelf = UserModel.objects.filter(user = uid).values_list('userfavorites') 
+    s_usermodelf = UserModelSerializer(data = i_usermodelf)
+    usermodelf = s_usermodelf.initial_data
+    
     usermodelfav = []
 
     for a in usermodelf:
@@ -36,7 +39,10 @@ def Dashboard(request):
             favsubmissions.append(SubmissionModel.objects.get(id = x))
 
     print(favsubmissions)
+    
     hackathons = HackathonModel.objects.all()
+    
+    
     context = {
         'hackathons' : hackathons,
         'favsubmissions' : favsubmissions
@@ -89,15 +95,13 @@ def LogOut(request):
     return redirect('login')
 
 
-@api_view(['POST','GET'])
+@api_view(['POST'])
 @login_required(login_url='login')
 def newHackathon(request):
     
     if request.method == 'POST':
         serializer = HackathonSerializer(data = request.data)
-        form = HackathonForm(request.POST,request.FILES)
-        context = {'form':form}
-        
+
         if serializer.is_valid():
             print("valid serializer")
             serializer.save()
@@ -106,17 +110,27 @@ def newHackathon(request):
             print(serializer.errors)
 
     else:    
-        return render(request,'newHackathon.html',context)
+        return render(request,'newHackathon.html')
     
+    
+@api_view(['GET'])
 @login_required(login_url='login')
 def HackathonDetail(request,id):
     
-    hackathons = HackathonModel.objects.filter(id = id)
-    submissions = SubmissionModel.objects.filter(hackathonid = id)
+    i_hackathons = HackathonModel.objects.filter(id = id)
+    s_hackathons = HackathonSerializer(data = i_hackathons)
+    hackathons = s_hackathons.initial_data
+    
+    i_submissions = SubmissionModel.objects.filter(hackathonid = id)
+    s_submissions = SubmissionSerializer(data = i_submissions)
+    submissions = s_submissions.initial_data
+    
     print(submissions)
     
     return render(request,'hackathonDetail.html',{'hackathons':hackathons,'submissions':submissions})
 
+
+@api_view(['POST','GET'])
 @login_required(login_url='login')
 def newSubmission(request,id):
     
@@ -125,55 +139,54 @@ def newSubmission(request,id):
     if request.method == 'POST':
         
         form = SubmissionForm(request.POST,request.FILES)
+        serializer = SubmissionSerializer(data = request.data)
         context = {'form':form,'hackathon':hackathon}
         
-        if form.is_valid():
-            form_data = form.save(commit=False)
-            form_data.hackathonid = hackathon
-            form_data.type = hackathon.type
+        if serializer.is_valid():
+            serializer_data = serializer.save(commit = False)
+            serializer_data.hackathonid = hackathon
+            serializer_data.type = hackathon.type
             curuser = str(request.user)
-            print(curuser,type(curuser))
-            form_data.username = curuser
-            form_data.save()
-            
-            form = SubmissionForm()
-            print("--------- SAVED ----------")
-            return redirect('dashboard')
+            serializer_data.username = curuser
+            serializer_data.save()
             
         else:
-            print(form.errors)
+            print("ERRORS\n: ", serializer.errors)
             
     else:    
-        form = SubmissionForm()
         context = {
-            'form':form,
             'hackathon' : hackathon
             }
         
     return render(request,'newSubmission.html',context)
 
 
+@api_view(['GET'])
 @login_required(login_url='login')
 def SubmissionDetail(request,id):
 
     submission = SubmissionModel.objects.get(id=id)
+    ssubmission = SubmissionSerializer(data = submission)
     uid = request.user.id
 
     usermodelf = UserModel.objects.filter(user = uid).values_list('userfavorites')
     usermodelfav = []
     for a in usermodelf:
         usermodelfav.append(a[0])
-    print(usermodelfav)
+    # print(usermodelfav)
     
-    return render(request,"submissionDetail.html",{'submission':submission,'usermodelfav':usermodelfav})
+    return render(request,"submissionDetail.html",{'usermodelfav':usermodelfav,'ssubmission':ssubmission.initial_data})
         
-        
+
+@api_view(['POST','GET'])
 @login_required(login_url='login')
 def DownloadSubmission(request,id):
 
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    submission = SubmissionModel.objects.get(id = id)
+    i_submission = SubmissionModel.objects.get(id = id)
+    s_submission = SubmissionSerializer(data = i_submission)
+    submission = s_submission.initial_data
 
     if submission.type == "File":
         filename = submission.subfile.name
@@ -192,35 +205,45 @@ def DownloadSubmission(request,id):
     return response
 
 
+@api_view(['GET'])
 @login_required(login_url='login')
 def SubmissionsList(request):
     
     username = str(request.user)
-    submissions = SubmissionModel.objects.filter(username = username)
+    i_submissions = SubmissionModel.objects.filter(username = username)
+    s_submissions = SubmissionSerializer(data = i_submissions)
+    submissions = s_submissions.initial_data
     print(submissions)
     
     return render(request,"submissionList.html",{'submissions':submissions})
 
-
+@api_view(['GET','DELETE'])
 @login_required(login_url='login')
 def SubmissionDelete(request,id):
     
-    submissions = SubmissionModel.objects.get(id = id)
+    i_submissions = SubmissionModel.objects.get(id = id)
+    s_submissions = SubmissionSerializer(data = i_submissions)
+    submissions = s_submissions.initial_data
     submissions.delete()
     
     return redirect('dashboard')
 
 
+@api_view(['GET','PUT','POST'])
 @login_required(login_url='login')
 def SubmissionEdit(request,id):
     
-    submissionx = SubmissionModel.objects.get(id = id)
-    hackathonid = submissionx.hackathonid
+    i_submissionx = SubmissionModel.objects.get(id = id)
+    s_submissionx = SubmissionSerializer(data = i_submissionx)
+    submissionx = s_submissionx.initial_data
+    
+    hackathonid = submissionx.hackathonid.id
     htype = submissionx.type
     husername = submissionx.username
     
     if request.method == 'POST':
-        form = SubmissionForm(request.POST,instance=submissionx)
+
+        form = SubmissionSerializer(data = submissionx)
         if form.is_valid():
             
             form_data = form.save(commit=False)
@@ -229,35 +252,52 @@ def SubmissionEdit(request,id):
             form_data.username = husername
             form_data.save()
             
-            form.save()
+            # form.save()
             
             return redirect('dashboard')
         else:
-            print(form.errors)
+            print("---ERROR---\n",form.errors)
     
     else:
+        i_submissionx = SubmissionModel.objects.get(id = id)
+        s_submissionx = SubmissionSerializer(data = i_submissionx)
+        submissionx = s_submissionx.initial_data
         
-        submissionx = SubmissionModel.objects.get(id = id)
+        i_hackathons = HackathonModel.objects.get(id = hackathonid)
+        print("hackathonid ",hackathonid)
+        s_hackathons = HackathonSerializer(data = i_hackathons)
+        hackathon = s_hackathons.initial_data
+        
+        
         submission = submissionx 
-            
-        form = SubmissionForm(instance = submission)
-        context = {'form':form}
+        editing = True
+        
+        # form = SubmissionForm(instance = submission)
+        # context = {'form':form}
     
-    return render(request,'newSubmission.html',context)
-
+    return render(request,'newSubmission.html',{'editing':editing,'submission':submission,'hackathon':hackathon})
 
 
 @login_required(login_url='login')
 def FavoriteSubmission(request,id):
 
-    submission = SubmissionModel.objects.get(id=id)
+    i_submission = SubmissionModel.objects.get(id=id)
+    s_submission = SubmissionSerializer(data = i_submission)
+    submission = s_submission.initial_data
+    
     cuser = request.user
     uid = request.user.id
 
-    usermodel = UserModel.objects.get(user=uid)
+    i_usermodel = UserModel.objects.get(user=uid)
+    s_usermodel = UserModelSerializer(data = i_usermodel)
+    usermodel = s_usermodel.initial_data
+    
     usermodel.userfavorites.add(submission)
     
-    usermodelf = UserModel.objects.filter(user = uid).values_list('userfavorites') 
+    i_usermodelf = UserModel.objects.filter(user = uid).values_list('userfavorites') 
+    s_usermodelf = UserModelSerializer(data= i_usermodelf)
+    usermodelf = s_usermodelf.initial_data
+    
     usermodelfav = []
     for a in usermodelf:
         usermodelfav.append(a[0])
@@ -269,11 +309,17 @@ def FavoriteSubmission(request,id):
 @login_required(login_url='login')
 def FavoriteSubmissionRemove(request,id):
 
-    submission = SubmissionModel.objects.get(id=id)
+    i_submission = SubmissionModel.objects.get(id=id)
+    s_submission = SubmissionSerializer(data = i_submission)
+    submission = s_submission.initial_data
+    
     cuser = request.user
     uid = request.user.id
 
-    usermodel = UserModel.objects.get(user=uid)
+    i_usermodel = UserModel.objects.get(user=uid)
+    s_usermodel = UserModelSerializer(data = i_usermodel)
+    usermodel = s_usermodel.initial_data
+    
     usermodel.userfavorites.remove(submission)
     
     usermodelf = UserModel.objects.filter(user = uid).values_list('userfavorites') 

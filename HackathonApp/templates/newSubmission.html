@@ -53,30 +53,6 @@
         }
 </style>
 
-
-
-<script>
-
-    function option()
-    {
-
-        if("{{hackathon.type}}" == "File")
-        {
-            sub_file();
-        }
-        else if( "{{hackathon.type}}" == "Image")
-        {
-            sub_file();
-        }
-        else if( "{{hackathon.type}}" == "Link")
-        {
-            sub_file();
-        }
-        
-    }
-
-</script>
-
 <section class="vh-100 bg-image" style="background-color: #4835d4;">
     <div class="mask d-flex align-items-center h-100 gradient-custom-3">
         <div class="container h-100">
@@ -104,55 +80,51 @@
 
                     {% csrf_token %}
 
-                    <!-- <div class="form-outline mb-4">
-                        <label class="form-label" for="form3Example1cg" >Hackathon</label>
-                        {{form.hackathonid}}
-                    </div> -->
-
                     <div class="form-outline mb-4">
-                    <!-- <input type="text" class='form-control form-control-lg' name="title"> -->
-                    <label class="form-label" for="form3Example1cg" >Title</label>
-                    {{form.title}}
+                        <label {% if editing == False %}class="form-label"{% endif %} for="form3Example1cg" >Title</label>
+                        <input type="text" class='form-control form-control-lg' name="title" id="title" {% if editing == True %} value="{{submission.title}}" {% endif %}>
                     </div>
 
                     <div class="form-outline mb-4">
-                    <!-- <input type="text" class='form-control form-control-lg' name="summary"> -->
-                    <label class="form-label" for="form3Example3cg" >Summary</label>
-                    {{form.summary}}
+                        <label {% if editing == False %}class="form-label"{% endif %} for="form3Example3cg" >Summary</label>
+                        <input type="text" class='form-control form-control-lg' name="summary" id="summary" {% if editing == True %} value="{{submission.summary}}" {% endif %}>
                     </div>
                     
                     <div class="form-outline mb-4">
-                    <!-- <input type="text" class='form-control form-control-lg' name="description"> -->
-                    <label class="form-label" for="form3Example3cg" >Description</label>
-                    {{form.description}}
+                        <label {% if editing == False %}class="form-label"{% endif %} for="form3Example3cg" >Description</label>
+                        <input type="text" class='form-control form-control-lg' name="description" id="description" {% if editing == True %} value="{{submission.description}}" {% endif %}>
                     </div>
                     
-                    <label class="form-label" for="form3Example3cg" >Cover Image</label>
-                    <!-- <input type="file" class='form-control form-control-lg' name="coverimg"> -->
-                    {{form.coverimg}}
+                    <div class="form-outline mb-4">
+                        <label {% if editing == False %}class="form-label"{% endif %} for="form3Example3cg" >Cover Image</label>
+                        <input type="file" class='form-control form-control-lg' name="coverimg" id="coverimg" {% if editing == True %} value="{{submission.coverimg}}" {% endif %}>
+                    </div>
 
                     {% if hackathon.type == 'Image' %}
-                    <label class="form-label" for="form3Example3cg" >Submission Image</label>
-                    <!-- <input type="image" class='form-control form-control-lg' name="subimg"> -->
-                    {{form.subimg}}
-
+                    <div class="form-outline mb-4">
+                        <label {% if editing == False %}class="form-label"{% endif %} for="form3Example3cg" >Submission Image</label>
+                        <input type="file" class='form-control form-control-lg' name="subimg" id="subimg" {% if editing == True %} value="{{submission.subimg.url}}" {% endif %}>
+                    </div>
+                    
                     {% elif hackathon.type == 'File' %}
-                    <label class="form-label" for="form3Example3cg" >Submission File</label>
-                    <!-- <input type="file" class='form-control form-control-lg' name="subfile"> -->
-                    {{form.subfile}}
+                    <div class="form-outline mb-4">
+                        <label {% if editing == False %}class="form-label"{% endif %} for="form3Example3cg" >Submission File</label>
+                        <input type="file" class='form-control form-control-lg' name="subfile" id="subfile">
+                    </div>
+
 
                     {% elif hackathon.type == 'Link' %}
-                    <label class="form-label" for="form3Example3cg" >Submission Link</label>
-                    <!-- <input type="url" class='form-control form-control-lg' name="sublink"> -->
-                    {{form.sublink}}
-
+                    <div class="form-outline mb-4">
+                        <label {% if editing == False %}class="form-label"{% endif %} for="form3Example3cg" >Submission Link</label>
+                        <input type="url" class='form-control form-control-lg' name="sublink" id="sublink">
+                    </div>
                     {% else %}
                     -
 
                     {% endif %}
 
                     <div class="d-flex justify-content-center" style="padding-top:30px">
-                    <input type="submit" value="Submit" class="btn btn-success btn-lg gradient-custom-4 text-body">
+                        <input type="submit" value="Submit" class="btn btn-success btn-lg gradient-custom-4 text-body">
                     </div>
 
                 </form>

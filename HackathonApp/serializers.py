@@ -25,12 +25,32 @@ class HackathonSerializer(serializers.ModelSerializer):
         model = HackathonModel
         fields = '__all__'
         
-        # def __init__(self, *args, **kwargs):
-        #     super(HackathonSerializer, self).__init__(*args, **kwargs)
-        #     self.fields['title'].widget.attrs['class'] = 'form-control form-control-lg'
-        #     self.fields['description'].widget.attrs['class'] = 'form-control form-control-lg'
-        #     self.fields['bgimg'].widget.attrs['class'] = 'form-control form-control-lg'
-        #     self.fields['hkimg'].widget.attrs['class'] = 'form-control form-control-lg'
-        #     self.fields['type'].widget.attrs['class'] = 'form-control form-control-lg'
-        #     self.fields['startdate'].widget.attrs['class'] = 'form-control form-control-lg'
-        #     self.fields['reward'].widget.attrs['class'] = 'form-control form-control-lg'
+class SubmissionSerializer(serializers.ModelSerializer):
+
+    hackathonid = serializers.IntegerField()
+    username = serializers.CharField(max_length=100)
+    type = serializers.CharField(max_length=100)
+    title = serializers.CharField(max_length=100)
+    summary = serializers.CharField(max_length=100)
+    description = serializers.CharField(max_length=500)
+    coverimg = serializers.ImageField()
+    subimg = serializers.ImageField()
+    sublink = serializers.URLField(max_length=200)
+    subfile = serializers.FileField()
+    
+    class Meta:
+        
+        model = SubmissionModel
+        fields = ('hackathonid','username','title','summary','description','coverimg','subimg','sublink','subfile','type')
+    
+    
+class UserModelSerializer(serializers.ModelSerializer):
+
+    user = serializers.IntegerField()
+    userfavorites = SubmissionSerializer(many=True)
+    
+    class Meta:
+        
+        model = UserModel
+        fields = "__all__"
+        

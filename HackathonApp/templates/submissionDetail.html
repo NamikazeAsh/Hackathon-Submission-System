@@ -194,7 +194,7 @@
               <div class="swiper-wrapper align-items-center">
 
                 <div class="swiper-slide">
-                  <img src="{{submission.coverimg.url}}" alt="">
+                  <img src="{{ssubmission.coverimg.url}}" alt="">
                 </div>
 
               </div>
@@ -205,25 +205,25 @@
           <div class="col-lg-4">
             <div class="portfolio-info">
               <h3>
-              {% if submission.id not in usermodelfav %}
-              <a href="/favoriteSubmission/{{submission.id}}"><img src = {% static 'icons/star.svg' %}></a>
+              {% if ssubmission.id not in usermodelfav %}
+              <a href="/favoriteSubmission/{{ssubmission.id}}"><img src = {% static 'icons/star.svg' %}></a>
               {% else %}
-              <a href="/favoriteSubmissionRemove/{{submission.id}}"><img src = {% static 'icons/check-square.svg' %} alt="Favorited"></a>
+              <a href="/favoriteSubmissionRemove/{{ssubmission.id}}"><img src = {% static 'icons/check-square.svg' %} alt="Favorited"></a>
               {% endif %}
               
-              {% if submission.username == request.user.username %}
-              <a href="/submissionDelete/{{submission.id}}"><img src = {% static 'icons/trash.svg' %}></a>
-              <a href="/submissionEdit/{{submission.id}}"><img src = {% static 'icons/edit.svg' %}></a>
+              {% if ssubmission.username == request.user.username %}
+              <a href="/submissionDelete/{{ssubmission.id}}"><img src = {% static 'icons/trash.svg' %}></a>
+              <a href="/submissionEdit/{{ssubmission.id}}"><img src = {% static 'icons/edit.svg' %}></a>
               {% endif %}
 
               <br><br>Submission Information</h3>
               
               <ul>
-                <li><strong>Title</strong>: {{submission.title}}</li>
-                <li><strong>Summary</strong>: {{submission.summary}}</li>
-                <li><strong>Description</strong>: {{submission.description}}</li>
-                <li><strong>Submission by</strong>: {{submission.username}}</li>
-                <li><strong>Hackathon</strong>: {{submission.hackathonid}}</li>
+                <li><strong>Title</strong>: {{ssubmission.title}}</li>
+                <li><strong>Summary</strong>: {{ssubmission.summary}}</li>
+                <li><strong>Description</strong>: {{ssubmission.description}}</li>
+                <li><strong>Submission by</strong>: {{ssubmission.username}}</li>
+                <li><strong>Hackathon</strong>: {{ssubmission.hackathonid}}</li>
               </ul>
               
             </div>
@@ -231,12 +231,12 @@
               <h2>Solution presented</h2>
                 <div class="text-center">
 
-                  {% if submission.type == "Link" %}
-                  <a href="{{submission.sublink}}" class="btn-get-started scrollto">Link</a>
-                  {% elif submission.type == "Image" %}
-                  <a href="/downloadSubmission/{{submission.id}}" class="btn-get-started scrollto">Image</a>
-                  {% elif submission.type == "File" %}
-                  <a href="/downloadSubmission/{{submission.id}}" class="btn-get-started scrollto">File</a>
+                  {% if ssubmission.type == "Link" %}
+                  <a href="{{ssubmission.sublink}}" class="btn-get-started scrollto">Link</a>
+                  {% elif ssubmission.type == "Image" %}
+                  <a href="/downloadSubmission/{{ssubmission.id}}" class="btn-get-started scrollto">Image</a>
+                  {% elif ssubmission.type == "File" %}
+                  <a href="/downloadSubmission/{{ssubmission.id}}" class="btn-get-started scrollto">File</a>
                   {% endif %}
 
                 </div>
