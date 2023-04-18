@@ -10,10 +10,15 @@ from django.contrib.auth.decorators import login_required
 import mimetypes
 
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from .serializers import *
+
 def index(request):
     return render(request,"index.html")
 
-
+@api_view(['GET'])
 @login_required(login_url='login')
 def Dashboard(request):
     
@@ -24,8 +29,6 @@ def Dashboard(request):
 
     for a in usermodelf:
         usermodelfav.append(a[0])
-
-    print("usermodelfav ",usermodelfav)
 
     favsubmissions = []
     if usermodelfav != [None]:    
@@ -41,7 +44,7 @@ def Dashboard(request):
     
     return render(request,"dashboard.html",context)
 
-
+@api_view(['POST','GET'])
 def SignUp(request):
     
     if request.method == 'POST':
@@ -60,7 +63,7 @@ def SignUp(request):
     
     return render(request,'signup.html')
 
-
+@api_view(['POST','GET'])
 def LogIn(request):
     
     if request.method == 'POST':
@@ -86,22 +89,23 @@ def LogOut(request):
     return redirect('login')
 
 
+@api_view(['POST','GET'])
 @login_required(login_url='login')
 def newHackathon(request):
     
     if request.method == 'POST':
+        serializer = HackathonSerializer(data = request.data)
         form = HackathonForm(request.POST,request.FILES)
         context = {'form':form}
-        if form.is_valid():
-            form.save()
-            form = HackathonForm()
+        
+        if serializer.is_valid():
+            print("valid serializer")
+            serializer.save()
             return redirect('dashboard')
         else:
-            print(form.errors)
-            return redirect('dashboard')
+            print(serializer.errors)
+
     else:    
-        form = HackathonForm()
-        context = {'form':form,}
         return render(request,'newHackathon.html',context)
     
 @login_required(login_url='login')

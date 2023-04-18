@@ -78,43 +78,52 @@
 
                 <h2 class="text-uppercase text-center mb-5">Hackathon Creation</h2>
 
-                <form method="POST" enctype="multipart/form-data">
+                <form method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
 
                     {% csrf_token %}
 
                     <div class="form-outline mb-4">
-                    {{form.title}}
+                    <input type="text" class='form-control form-control-lg' name="title">
                     <label class="form-label" for="form3Example1cg">Title</label>
                     </div>
 
                     <div class="form-outline mb-4">
-                    {{form.description}}
+                    <input type="text" class="form-control form-control-lg" name="description">
                     <label class="form-label" for="form3Example3cg">Description</label>
                     </div>
                     
-                    <label class="form-label" for="form3Example3cg">Background Image</label>
-                    {{form.bgimg}}
+                    
+                    <div class="form-outline mb-4">
+                    <label class="form-label" for="bgimg">Background Image</label><br>
+                    <input type="file" src="" alt="" class="" name="bgimg"><br>     
+                    </div>
 
-                    <label class="form-label" for="form3Example3cg">Hackathon Image</label>
-                    {{form.hkimg}}
+                    <div class="form-outline mb-4">
+                    <label class="form-label" for="hkimg">Hackathon Image</label><br>
+                    <input type="file" src="" alt="" class="" name="hkimg">
+                    </div>
 
                     <div class="form-outline mb-4">
                     <p class="form-label" style="padding-top: 5px;">Start Date</p>
-                    {{form.startdate}}
+                    <input type="date" name="startdate" id="" class="form-control form-control-lg">
                     </div>
 
                     <div class="form-outline mb-4">
                     <p class="form-label" style="padding-top: 5px;">End Date</p>
-                    {{form.enddate}}
+                    <input type="date" name="enddate" id="" class="form-control form-control-lg">
                     </div>
 
                     <div class="form-outline mb-4">
                     <p class="form-label" style="padding-top: 5px;">Type</p>
-                    {{form.type}}
+                    <select class="form-control form-control-lg" name="type">
+                        <option value="File">File</option>
+                        <option value="Image">Image</option>
+                        <option value="Link">Link</option>
+                    </select>
                     </div>
 
                     <div class="form-outline mb-4">
-                    {{form.reward}}
+                    <input type="number" class="form-control form-control-lg" name="reward">
                     <label class="form-label" for="form3Example3cg">Reward</label>
                     </div>
 
