@@ -95,7 +95,7 @@ def LogOut(request):
     return redirect('login')
 
 
-@api_view(['POST'])
+@api_view(['POST','GET'])
 @login_required(login_url='login')
 def newHackathon(request):
     
