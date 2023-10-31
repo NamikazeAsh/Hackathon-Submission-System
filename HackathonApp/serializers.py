@@ -34,9 +34,9 @@ class SubmissionSerializer(serializers.ModelSerializer):
     summary = serializers.CharField(max_length=100)
     description = serializers.CharField(max_length=500)
     coverimg = serializers.ImageField()
-    subimg = serializers.ImageField()
+    subimg = serializers.ImageField(validators=[FileExtensionValidator(['png','jpeg','jpg','ico',""])])
     sublink = serializers.URLField(max_length=200)
-    subfile = serializers.FileField()
+    subfile = serializers.FileField(validators=[FileExtensionValidator(['pdf','csv','docx',""])])
     
     class Meta:
         
